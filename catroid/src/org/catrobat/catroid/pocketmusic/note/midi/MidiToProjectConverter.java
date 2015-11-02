@@ -55,6 +55,7 @@ public class MidiToProjectConverter {
 
     public MidiToProjectConverter() {
         // TODO fw consider other BPM
+        // TODO: Consider MusicalBeat in Track
         beatsPerMinute = Project.DEFAULT_BEATS_PER_MINUTE;
         tracks = new ArrayList<>();
         trackNames = new ArrayList<>();

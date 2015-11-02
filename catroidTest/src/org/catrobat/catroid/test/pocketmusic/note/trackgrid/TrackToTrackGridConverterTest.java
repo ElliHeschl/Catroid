@@ -21,20 +21,23 @@ public class TrackToTrackGridConverterTest extends AndroidTestCase {
 	public void testConvertTrack1() {
 		TrackToTrackGridConverter converter = new TrackToTrackGridConverter();
 		Track track = TrackTestDataFactory.createSimpleTrack();
-		TrackGrid simpleTrackGrid = TrackGridTestDataFactory.createSimpleTracKGrid();
+		TrackGrid simpleTrackGrid = TrackGridTestDataFactory.createSimpleTrackGrid();
 
-		TrackGrid convertedTrackGrid = converter.converTrackToTrackGrid(track, Project.DEFAULT_BEATS_PER_MINUTE);
+		TrackGrid convertedTrackGrid = converter.convertTrackToTrackGrid(track, Project.DEFAULT_BEATS_PER_MINUTE);
 
 		assertTrue(convertedTrackGrid.equals(simpleTrackGrid));
 	}
 
-//	public void testConvertTrack2() {
-//		TrackToSymbolContainerConverter converter = new TrackToSymbolContainerConverter();
-//		Track track = TrackTestDataFactory.createTrackWithSeveralBreaks();
-//		SymbolContainer symbolContainer = SymbolContainerTestDataFactory.createSymbolsWithSeveralBreaks();
-//
-//		assertEquals(symbolContainer, converter.convertTrack(track, Project.DEFAULT_BEATS_PER_MINUTE));
-//	}
+	public void testConvertTrack2() {
+		TrackToTrackGridConverter converter = new TrackToTrackGridConverter();
+		Track track = TrackTestDataFactory.createTrackWithSeveralBreaks();
+		TrackGrid trackWithSeveralBreaks = TrackGridTestDataFactory.createTrackGridWithSeveralBreaks();
+
+
+		TrackGrid convertedTrackGrid = converter.convertTrackToTrackGrid(track, Project.DEFAULT_BEATS_PER_MINUTE);
+
+		assertTrue(convertedTrackGrid.equals(trackWithSeveralBreaks));
+	}
 //
 //	public void testConvertTrackAccord() {
 //		TrackToSymbolContainerConverter converter = new TrackToSymbolContainerConverter();

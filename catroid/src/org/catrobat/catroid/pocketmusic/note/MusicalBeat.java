@@ -4,21 +4,21 @@ package org.catrobat.catroid.pocketmusic.note;
  * Created by Elli on 26.10.15.
  */
 public enum MusicalBeat {
-	BEAT_3_4(3,4), BEAT_4_4(4,4);
+	BEAT_3_4(3, NoteLength.QUARTER), BEAT_4_4(4, NoteLength.QUARTER), BEAT_16_16(16,NoteLength.SIXTEENTH);
 
-	private final int innerBeatCount_;
-	private final int noteLength_;
+	private final int innerBeatCount;
+	private final NoteLength noteLength;
 
-	private MusicalBeat(int innerBeatCount, int noteLength) {
-		this.innerBeatCount_ = innerBeatCount;
-		this.noteLength_ = noteLength;
+	private MusicalBeat(int innerBeatCount, NoteLength noteLength) {
+		this.innerBeatCount = innerBeatCount;
+		this.noteLength = noteLength;
 	}
 
 	public int getInnerBeatCount() {
-		return innerBeatCount_;
+		return innerBeatCount;
 	}
 
-	public int getNoteLength() {
-		return noteLength_;
+	public NoteLength getNoteLength() {
+		return noteLength;
 	}
 }

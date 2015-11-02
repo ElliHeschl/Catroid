@@ -20,30 +20,25 @@ public class TrackToTrackGridConverter {
 	public TrackToTrackGridConverter() {
 	}
 
-	public TrackGrid converTrackToTrackGrid(Track track, int beatsPerMinute) {
+	public TrackGrid convertTrackToTrackGrid(Track track, int beatsPerMinute) {
 
 		Map<NoteName, Long> openNotes_ = new HashMap<NoteName, Long>();
 		Map<NoteName, GridRow> gridRows_ = new HashMap<NoteName, GridRow>();
-		long lastTick_ = 0;
-		NoteLength minNoteLength = NoteLength.WHOLE_DOT;
+
+		NoteLength minNoteLength = track.getBeat().getNoteLength();
 
 		for (Long tick : track.getSortedTicks()) {
 			for (NoteEvent noteEvent : track.getNoteEventsForTick(tick)) {
 				NoteName noteName = noteEvent.getNoteName();
 
 				if (noteEvent.isNoteOn()) {
-					lastTick_ = tick;
 					openNotes_.put(noteName, tick);
 				} else {
 					long openTick = openNotes_.get(noteName);
 					NoteLength length = NoteLength.getNoteLengthFromTickDuration(tick - openTick, beatsPerMinute);
 
-					if(length.toMilliseconds(beatsPerMinute) < minNoteLength.toMilliseconds(beatsPerMinute)) {
-						minNoteLength = length;
-					}
-
-
-					GridRowPosition gridRowPosition = new GridRowPosition(openTick, length);
+					GridRowPosition gridRowPosition = new GridRowPosition((int) (openTick /
+							minNoteLength.toTicks(beatsPerMinute)), openTick, length);
 
 					if(!gridRows_.containsKey(noteName)) {
 						gridRows_.put(noteName, new GridRow(noteName, new ArrayList<GridRowPosition>()));
@@ -51,13 +46,6 @@ public class TrackToTrackGridConverter {
 
 					gridRows_.get(noteName).getGridRowPositions().add(gridRowPosition);
 				}
-			}
-		}
-
-		for(GridRow gridRow : gridRows_.values()) {
-			for(GridRowPosition gridRowPosition : gridRow.getGridRowPositions()) {
-				gridRowPosition.setColumnStartIndex((int) (gridRowPosition.getStartTicksInTrack() /
-						minNoteLength.toTicks(beatsPerMinute)));
 			}
 		}
 

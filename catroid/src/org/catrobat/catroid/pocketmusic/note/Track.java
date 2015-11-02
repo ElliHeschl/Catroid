@@ -40,14 +40,22 @@ public class Track implements Serializable {
     private HashMap<Long, List<NoteEvent>> events;
     private MusicalKey key;
     private long lastTick;
-    private MusicalBeat beat_;// TODO: 26.10.15 new constructor
+    private MusicalBeat beat;
 
     public Track(MusicalKey key, MusicalInstrument instrument) {
         this.events = new HashMap<Long, List<NoteEvent>>();
         this.instrument = instrument;
         this.key = key;
         this.lastTick = 0;
-        this.beat_ = MusicalBeat.BEAT_4_4;
+        this.beat = MusicalBeat.BEAT_4_4;
+    }
+
+    public Track(MusicalKey key, MusicalInstrument instrument, MusicalBeat beat) {
+        this.events = new HashMap<Long, List<NoteEvent>>();
+        this.instrument = instrument;
+        this.key = key;
+        this.lastTick = 0;
+        this.beat = beat;
     }
 
     public Track(Track track) {
@@ -153,6 +161,10 @@ public class Track implements Serializable {
             return false;
         }
 
+        if (track.getBeat() != getBeat()) {
+            return false;
+        }
+
         Set<Long> ownTrackTicks = getSortedTicks();
         Set<Long> otherTrackTicks = track.getSortedTicks();
 
@@ -182,6 +194,6 @@ public class Track implements Serializable {
     }
 
     public MusicalBeat getBeat() {
-        return beat_;
+        return beat;
     }
 }

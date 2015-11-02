@@ -22,6 +22,7 @@
  */
 package org.catrobat.catroid.test.pocketmusic.note;
 
+import org.catrobat.catroid.pocketmusic.note.MusicalBeat;
 import org.catrobat.catroid.pocketmusic.note.MusicalInstrument;
 import org.catrobat.catroid.pocketmusic.note.MusicalKey;
 import org.catrobat.catroid.pocketmusic.note.NoteEvent;
@@ -33,6 +34,10 @@ import org.catrobat.catroid.pocketmusic.note.Track;
 public final class TrackTestDataFactory {
 
     private TrackTestDataFactory() {
+    }
+
+    public static Track createTrack(MusicalKey key, MusicalInstrument instrument, MusicalBeat beat) {
+        return new Track(key, instrument, beat);
     }
 
     public static Track createTrack() {
@@ -111,7 +116,8 @@ public final class TrackTestDataFactory {
     }
 
     public static Track createTrackWithSeveralBreaks() {
-        Track track = TrackTestDataFactory.createTrack();
+        Track track = TrackTestDataFactory.createTrack(MusicalKey.VIOLIN, MusicalInstrument.ACOUSTIC_GRAND_PIANO,
+                MusicalBeat.BEAT_16_16);
         long tick = 0;
 
         tick += NoteLength.HALF.toTicks(Project.DEFAULT_BEATS_PER_MINUTE);

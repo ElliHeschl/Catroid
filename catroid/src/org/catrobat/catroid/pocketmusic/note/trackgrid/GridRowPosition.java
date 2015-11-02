@@ -7,36 +7,37 @@ import org.catrobat.catroid.pocketmusic.note.NoteLength;
  */
 public class GridRowPosition {
 
-	private int columnStartIndex_;
-	private final long startTicksInTrack_;
-	private final NoteLength noteLength_;
+	private int columnStartIndex;
+	private final long startTicksInTrack;
+	private final NoteLength noteLength;
 
-	public GridRowPosition(long startTicksInTrack, NoteLength noteLength) {
-		this.startTicksInTrack_ = startTicksInTrack;
-		this.noteLength_ = noteLength;
+	public GridRowPosition(int columnStartIndex, long startTicksInTrack, NoteLength noteLength) {
+		this.columnStartIndex = columnStartIndex;
+		this.startTicksInTrack = startTicksInTrack;
+		this.noteLength = noteLength;
 	}
 
 	public int getColumnStartIndex() {
-		return columnStartIndex_;
+		return columnStartIndex;
 	}
 
 	public NoteLength getNoteLength() {
-		return noteLength_;
+		return noteLength;
 	}
 
 	public void setColumnStartIndex(int columnStartIndex) {
-		this.columnStartIndex_ = columnStartIndex;
+		this.columnStartIndex = columnStartIndex;
 	}
 
 	public long getStartTicksInTrack() {
-		return startTicksInTrack_;
+		return startTicksInTrack;
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		GridRowPosition reference = (GridRowPosition)o;
-		return reference.columnStartIndex_ == columnStartIndex_ &&
-				reference.startTicksInTrack_ == startTicksInTrack_ &&
-				reference.noteLength_.equals(noteLength_);
+		return reference.columnStartIndex == columnStartIndex &&
+				reference.startTicksInTrack == startTicksInTrack &&
+				reference.noteLength.equals(noteLength);
 	}
 }

@@ -9,27 +9,27 @@ import java.util.List;
  */
 public class GridRow {
 
-	private final NoteName noteName_;
-	private final List<GridRowPosition> gridRowPositions_;
+	private final NoteName noteName;
+	private final List<GridRowPosition> gridRowPositions;
 
 	public GridRow(NoteName noteName, List<GridRowPosition> gridRowPositions) {
-		this.noteName_ = noteName;
-		this.gridRowPositions_ = gridRowPositions;
+		this.noteName = noteName;
+		this.gridRowPositions = gridRowPositions;
 	}
 
 	public NoteName getNoteName() {
-		return noteName_;
+		return noteName;
 	}
 
 	public List<GridRowPosition> getGridRowPositions() {
-		return gridRowPositions_;
+		return gridRowPositions;
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		GridRow reference = (GridRow)o;
-		return reference.noteName_.equals(noteName_) &&
-				reference.gridRowPositions_.containsAll(gridRowPositions_) &&
-				gridRowPositions_.containsAll(reference.gridRowPositions_);
+		return reference.noteName.equals(noteName) &&
+				reference.gridRowPositions.containsAll(gridRowPositions) &&
+				gridRowPositions.containsAll(reference.gridRowPositions);
 	}
 }

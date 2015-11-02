@@ -4,7 +4,6 @@ import org.catrobat.catroid.pocketmusic.note.MusicalBeat;
 import org.catrobat.catroid.pocketmusic.note.MusicalInstrument;
 import org.catrobat.catroid.pocketmusic.note.MusicalKey;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,41 +11,41 @@ import java.util.List;
  */
 public class TrackGrid {
 
-	private final MusicalKey key_;
-	private final MusicalInstrument instrument_;
-	private final MusicalBeat beat_;
-	private final List<GridRow> gridRows_;
+	private final MusicalKey key;
+	private final MusicalInstrument instrument;
+	private final MusicalBeat beat;
+	private final List<GridRow> gridRows;
 
 	public TrackGrid(MusicalKey key, MusicalInstrument instrument, MusicalBeat beat, List<GridRow> gridRows) {
-		this.key_ = key;
-		this.instrument_ = instrument;
-		this.beat_ = beat;
-		this.gridRows_ = gridRows;
+		this.key = key;
+		this.instrument = instrument;
+		this.beat = beat;
+		this.gridRows = gridRows;
 	}
 
 	public MusicalKey getKey() {
-		return key_;
+		return key;
 	}
 
 	public MusicalInstrument getInstrument() {
-		return instrument_;
+		return instrument;
 	}
 
 	public MusicalBeat getBeat() {
-		return beat_;
+		return beat;
 	}
 
 	public List<GridRow> getGridRows() {
-		return gridRows_;
+		return gridRows;
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		TrackGrid reference = (TrackGrid)o;
-		return reference.gridRows_.containsAll(gridRows_) &&
-				gridRows_.containsAll(reference.gridRows_) &&
-				reference.beat_.equals(beat_) &&
-				reference.instrument_.equals(instrument_) &&
-				reference.key_.equals(key_);
+		return reference.gridRows.containsAll(gridRows) &&
+				gridRows.containsAll(reference.gridRows) &&
+				reference.beat.equals(beat) &&
+				reference.instrument.equals(instrument) &&
+				reference.key.equals(key);
 	}
 }
