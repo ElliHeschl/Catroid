@@ -33,6 +33,7 @@ import com.leff.midi.event.meta.Text;
 import com.leff.midi.event.meta.TimeSignature;
 import com.leff.midi.event.meta.TrackName;
 
+import org.catrobat.catroid.pocketmusic.note.MusicalBeat;
 import org.catrobat.catroid.pocketmusic.note.NoteEvent;
 import org.catrobat.catroid.pocketmusic.note.Project;
 import org.catrobat.catroid.pocketmusic.note.Track;
@@ -112,7 +113,7 @@ public class ProjectToMidiConverter {
 
         ArrayList<MidiTrack> tracks = new ArrayList<MidiTrack>();
 
-        MidiTrack tempoTrack = createTempoTrackWithMetaInfo(project.getBeatsPerMinute());
+        MidiTrack tempoTrack = createTempoTrackWithMetaInfo(project.getBeat(), project.getBeatsPerMinute());
         tracks.add(tempoTrack);
 
         for (String trackName : project.getTrackNames()) {
@@ -135,7 +136,7 @@ public class ProjectToMidiConverter {
         return nextChannel++;
     }
 
-    private MidiTrack createTempoTrackWithMetaInfo(int beatsPerMinute) {
+    private MidiTrack createTempoTrackWithMetaInfo(MusicalBeat beat, int beatsPerMinute) {
         MidiTrack tempoTrack = new MidiTrack();
 
         Text text = new Text(0, 0, MIDI_FILE_IDENTIFIER);
@@ -146,7 +147,9 @@ public class ProjectToMidiConverter {
         tempoTrack.insertEvent(tempo);
 
         TimeSignature timeSignature = new TimeSignature();
-        timeSignature.setTimeSignature(4, 4, TimeSignature.DEFAULT_METER, TimeSignature.DEFAULT_DIVISION);
+        timeSignature.setTimeSignature(beat.getTopNumber(), beat.getBottomNumber(), TimeSignature.DEFAULT_METER,
+                TimeSignature
+                .DEFAULT_DIVISION);
         tempoTrack.insertEvent(timeSignature);
 
         return tempoTrack;

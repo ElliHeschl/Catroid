@@ -2,6 +2,7 @@ package org.catrobat.catroid.test.pocketmusic.note.trackgrid;
 
 import android.test.AndroidTestCase;
 
+import org.catrobat.catroid.pocketmusic.note.MusicalBeat;
 import org.catrobat.catroid.pocketmusic.note.Project;
 import org.catrobat.catroid.pocketmusic.note.Track;
 import org.catrobat.catroid.pocketmusic.note.trackgrid.TrackGrid;
@@ -23,7 +24,8 @@ public class TrackToTrackGridConverterTest extends AndroidTestCase {
 		Track track = TrackTestDataFactory.createSimpleTrack();
 		TrackGrid simpleTrackGrid = TrackGridTestDataFactory.createSimpleTrackGrid();
 
-		TrackGrid convertedTrackGrid = converter.convertTrackToTrackGrid(track, Project.DEFAULT_BEATS_PER_MINUTE);
+		TrackGrid convertedTrackGrid = converter.convertTrackToTrackGrid(track, Project.DEFAULT_BEAT, Project
+				.DEFAULT_BEATS_PER_MINUTE);
 
 		assertTrue(convertedTrackGrid.equals(simpleTrackGrid));
 	}
@@ -34,7 +36,8 @@ public class TrackToTrackGridConverterTest extends AndroidTestCase {
 		TrackGrid trackWithSeveralBreaks = TrackGridTestDataFactory.createTrackGridWithSeveralBreaks();
 
 
-		TrackGrid convertedTrackGrid = converter.convertTrackToTrackGrid(track, Project.DEFAULT_BEATS_PER_MINUTE);
+		TrackGrid convertedTrackGrid = converter.convertTrackToTrackGrid(track, MusicalBeat.BEAT_16_16, Project
+				.DEFAULT_BEATS_PER_MINUTE);
 
 		assertTrue(convertedTrackGrid.equals(trackWithSeveralBreaks));
 	}

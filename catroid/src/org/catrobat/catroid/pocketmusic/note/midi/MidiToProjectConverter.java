@@ -30,11 +30,14 @@ import com.leff.midi.event.NoteOn;
 import com.leff.midi.event.ProgramChange;
 import com.leff.midi.event.meta.Tempo;
 import com.leff.midi.event.meta.Text;
+import com.leff.midi.event.meta.TimeSignature;
 import com.leff.midi.event.meta.TrackName;
 
+import org.catrobat.catroid.pocketmusic.note.MusicalBeat;
 import org.catrobat.catroid.pocketmusic.note.MusicalInstrument;
 import org.catrobat.catroid.pocketmusic.note.MusicalKey;
 import org.catrobat.catroid.pocketmusic.note.NoteEvent;
+import org.catrobat.catroid.pocketmusic.note.NoteLength;
 import org.catrobat.catroid.pocketmusic.note.NoteName;
 import org.catrobat.catroid.pocketmusic.note.Project;
 import org.catrobat.catroid.pocketmusic.note.Track;
@@ -50,6 +53,7 @@ public class MidiToProjectConverter {
     private static final MusicalInstrument DEFAULT_INSTRUMENT = MusicalInstrument.ACOUSTIC_GRAND_PIANO;
 
     private int beatsPerMinute;
+    private MusicalBeat beat;
     private List<Track> tracks;
     private List<String> trackNames;
 
@@ -57,6 +61,7 @@ public class MidiToProjectConverter {
         // TODO fw consider other BPM
         // TODO: Consider MusicalBeat in Track
         beatsPerMinute = Project.DEFAULT_BEATS_PER_MINUTE;
+        beat = Project.DEFAULT_BEAT;
         tracks = new ArrayList<>();
         trackNames = new ArrayList<>();
     }
@@ -98,7 +103,7 @@ public class MidiToProjectConverter {
             createTrack(midiTrack);
         }
 
-        Project project = new Project(name, beatsPerMinute);
+        Project project = new Project(name, beat, beatsPerMinute);
 
         int i = 0;
 
@@ -143,6 +148,11 @@ public class MidiToProjectConverter {
                 Tempo tempo = (Tempo) midiEvent;
 
                 beatsPerMinute = (int) tempo.getBpm();
+            } else if (midiEvent instanceof TimeSignature) {
+                TimeSignature timeSignature = (TimeSignature) midiEvent;
+
+                beat = MusicalBeat.convertToMusicalBeat(timeSignature.getNumerator(), timeSignature
+                        .getRealDenominator());
             }
         }
 

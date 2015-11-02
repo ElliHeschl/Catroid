@@ -37,6 +37,9 @@ public class ProjectTest extends AndroidTestCase {
         assertEquals(beatsPerMinute, project.getBeatsPerMinute());
     }
 
+
+    //TODO: Equals Musical Beat
+
     public void testGetName() {
         String name = "TestName";
         Project project = ProjectTestDataFactory.createProject(name);

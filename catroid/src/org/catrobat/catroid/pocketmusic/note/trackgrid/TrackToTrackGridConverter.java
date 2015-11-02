@@ -2,6 +2,7 @@ package org.catrobat.catroid.pocketmusic.note.trackgrid;
 
 import com.google.common.collect.Lists;
 
+import org.catrobat.catroid.pocketmusic.note.MusicalBeat;
 import org.catrobat.catroid.pocketmusic.note.NoteEvent;
 import org.catrobat.catroid.pocketmusic.note.NoteLength;
 import org.catrobat.catroid.pocketmusic.note.NoteName;
@@ -20,12 +21,12 @@ public class TrackToTrackGridConverter {
 	public TrackToTrackGridConverter() {
 	}
 
-	public TrackGrid convertTrackToTrackGrid(Track track, int beatsPerMinute) {
+	public TrackGrid convertTrackToTrackGrid(Track track, MusicalBeat beat, int beatsPerMinute) {
 
 		Map<NoteName, Long> openNotes_ = new HashMap<NoteName, Long>();
 		Map<NoteName, GridRow> gridRows_ = new HashMap<NoteName, GridRow>();
 
-		NoteLength minNoteLength = track.getBeat().getNoteLength();
+		NoteLength minNoteLength = beat.getNoteLength();
 
 		for (Long tick : track.getSortedTicks()) {
 			for (NoteEvent noteEvent : track.getNoteEventsForTick(tick)) {
@@ -49,7 +50,7 @@ public class TrackToTrackGridConverter {
 			}
 		}
 
-		return new TrackGrid(track.getKey(), track.getInstrument(), track.getBeat(), new ArrayList(gridRows_.values()));
+		return new TrackGrid(track.getKey(), track.getInstrument(), beat, new ArrayList(gridRows_.values()));
 	}
 
 }

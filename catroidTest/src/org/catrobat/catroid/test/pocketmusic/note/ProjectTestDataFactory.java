@@ -37,15 +37,17 @@ public class ProjectTestDataFactory {
     }
 
     public static Project createProject() {
-        return new Project("TestProject", Project.DEFAULT_BEATS_PER_MINUTE);
+        return new Project("TestProject", Project.DEFAULT_BEAT, Project.DEFAULT_BEATS_PER_MINUTE);
     }
 
     public static Project createProject(String name) {
-        return new Project(name, Project.DEFAULT_BEATS_PER_MINUTE);
+        return new Project(name, Project.DEFAULT_BEAT, Project
+                .DEFAULT_BEATS_PER_MINUTE);
     }
 
     public static Project createProject(int beatsPerMinute) {
-        return new Project("TestProject", beatsPerMinute);
+        return new Project("TestProject", Project.DEFAULT_BEAT,
+                beatsPerMinute);
     }
 
     public static Project createProjectWithTrack(MusicalInstrument instrument) {

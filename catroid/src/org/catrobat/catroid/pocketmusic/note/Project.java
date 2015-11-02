@@ -31,21 +31,25 @@ import java.util.Set;
 public class Project implements Serializable {
 
     public static final int DEFAULT_BEATS_PER_MINUTE = 60;
+    public static final MusicalBeat DEFAULT_BEAT = MusicalBeat.BEAT_4_4;
     private static final long serialVersionUID = 7396763540934053008L;
 
     private String name;
     private int beatsPerMinute;
+    private MusicalBeat beat;
     private Map<String, Track> tracks;
 
-    public Project(String name, int beatsPerMinute) {
+    public Project(String name, MusicalBeat beat, int beatsPerMinute) {
         this.name = name;
         this.beatsPerMinute = beatsPerMinute;
+        this.beat = beat;
         this.tracks = new HashMap<>();
     }
 
     public Project(Project project) {
         name = project.getName();
         beatsPerMinute = project.getBeatsPerMinute();
+        beat = project.getBeat();
         tracks = new HashMap<>();
 
         for (String name : project.tracks.keySet()) {
@@ -69,6 +73,8 @@ public class Project implements Serializable {
     public int getBeatsPerMinute() {
         return beatsPerMinute;
     }
+
+    public MusicalBeat getBeat() { return beat; }
 
     public void addTrack(String trackName, Track track) {
         tracks.put(trackName, track);
