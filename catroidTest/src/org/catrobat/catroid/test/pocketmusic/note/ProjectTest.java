@@ -24,6 +24,7 @@ package org.catrobat.catroid.test.pocketmusic.note;
 
 import android.test.AndroidTestCase;
 
+import org.catrobat.catroid.pocketmusic.note.MusicalBeat;
 import org.catrobat.catroid.pocketmusic.note.MusicalInstrument;
 import org.catrobat.catroid.pocketmusic.note.Project;
 import org.catrobat.catroid.pocketmusic.note.Track;
@@ -36,9 +37,6 @@ public class ProjectTest extends AndroidTestCase {
 
         assertEquals(beatsPerMinute, project.getBeatsPerMinute());
     }
-
-
-    //TODO: Equals Musical Beat
 
     public void testGetName() {
         String name = "TestName";
@@ -140,6 +138,13 @@ public class ProjectTest extends AndroidTestCase {
         Project project = ProjectTestDataFactory.createProject();
 
         assertFalse(project.equals(""));
+    }
+
+    public void testEquals9() {
+        Project project1 = ProjectTestDataFactory.createProjectWithMusicalBeat(MusicalBeat.BEAT_4_4);
+        Project project2 = ProjectTestDataFactory.createProjectWithMusicalBeat(MusicalBeat.BEAT_16_16);
+
+        assertFalse(project1.equals(project2));
     }
 
     public void testToString() {

@@ -22,6 +22,7 @@
  */
 package org.catrobat.catroid.test.pocketmusic.note;
 
+import org.catrobat.catroid.pocketmusic.note.MusicalBeat;
 import org.catrobat.catroid.pocketmusic.note.MusicalInstrument;
 import org.catrobat.catroid.pocketmusic.note.Project;
 import org.catrobat.catroid.pocketmusic.note.Track;
@@ -83,6 +84,10 @@ public class ProjectTestDataFactory {
         project.addTrack("someRandomTrackName1", track);
 
         return project;
+    }
+
+    public static Project createProjectWithMusicalBeat(MusicalBeat musicalBeat) {
+        return new Project("TestProject", musicalBeat, Project.DEFAULT_BEATS_PER_MINUTE);
     }
 
     public static ArrayList<File> getProjectFilesInStorage() {

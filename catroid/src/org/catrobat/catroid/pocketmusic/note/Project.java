@@ -122,6 +122,10 @@ public class Project implements Serializable {
             return false;
         }
 
+        if (getBeat() != project.getBeat()) {
+            return false;
+        }
+
         if (tracks.equals(project.tracks)) {
             return true;
         }
