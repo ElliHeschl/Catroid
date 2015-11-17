@@ -25,6 +25,7 @@ package org.catrobat.catroid.test.pocketmusic.note.trackgrid;
 import android.test.AndroidTestCase;
 
 import org.catrobat.catroid.pocketmusic.note.MusicalBeat;
+import org.catrobat.catroid.pocketmusic.note.MusicalInstrument;
 import org.catrobat.catroid.pocketmusic.note.Project;
 import org.catrobat.catroid.pocketmusic.note.Track;
 import org.catrobat.catroid.pocketmusic.note.trackgrid.TrackGrid;
@@ -38,7 +39,7 @@ public class TrackToTrackGridConverterTest extends AndroidTestCase {
 		super.setUp();
 	}
 
-	public void testConvertTrack1() {
+	public void testConvertSimpleTrack() {
 		TrackToTrackGridConverter converter = new TrackToTrackGridConverter();
 		Track track = TrackTestDataFactory.createSimpleTrack();
 		TrackGrid simpleTrackGrid = TrackGridTestDataFactory.createSimpleTrackGrid();
@@ -49,11 +50,10 @@ public class TrackToTrackGridConverterTest extends AndroidTestCase {
 		assertTrue(convertedTrackGrid.equals(simpleTrackGrid));
 	}
 
-	public void testConvertTrack2() {
+	public void testConvertTrackTihSeveralBreaks() {
 		TrackToTrackGridConverter converter = new TrackToTrackGridConverter();
 		Track track = TrackTestDataFactory.createTrackWithSeveralBreaks();
 		TrackGrid trackWithSeveralBreaks = TrackGridTestDataFactory.createTrackGridWithSeveralBreaks();
-
 
 		TrackGrid convertedTrackGrid = converter.convertTrackToTrackGrid(track, MusicalBeat.BEAT_16_16, Project
 				.DEFAULT_BEATS_PER_MINUTE);
@@ -61,5 +61,14 @@ public class TrackToTrackGridConverterTest extends AndroidTestCase {
 		assertTrue(convertedTrackGrid.equals(trackWithSeveralBreaks));
 	}
 
+	public void testConvertTrack() {
+		TrackToTrackGridConverter converter = new TrackToTrackGridConverter();
+		Track track = TrackTestDataFactory.createSemiComplexTrack(MusicalInstrument.ACOUSTIC_GRAND_PIANO);
+		TrackGrid semiComplexTrack = TrackGridTestDataFactory.createSemiComplexTrackGrid(MusicalInstrument.ACOUSTIC_GRAND_PIANO);
 
+		TrackGrid convertedTrackGrid = converter.convertTrackToTrackGrid(track, MusicalBeat.BEAT_16_16, Project
+				.DEFAULT_BEATS_PER_MINUTE);
+
+		assertTrue(convertedTrackGrid.equals(semiComplexTrack));
+	}
 }

@@ -22,8 +22,6 @@
  */
 package org.catrobat.catroid.pocketmusic.note.trackgrid;
 
-import com.google.common.collect.Lists;
-
 import org.catrobat.catroid.pocketmusic.note.MusicalBeat;
 import org.catrobat.catroid.pocketmusic.note.NoteEvent;
 import org.catrobat.catroid.pocketmusic.note.NoteLength;
@@ -32,10 +30,10 @@ import org.catrobat.catroid.pocketmusic.note.Track;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TrackToTrackGridConverter {
-
 
 	public TrackToTrackGridConverter() {
 	}
@@ -57,19 +55,28 @@ public class TrackToTrackGridConverter {
 					long openTick = openNotes_.get(noteName);
 					NoteLength length = NoteLength.getNoteLengthFromTickDuration(tick - openTick, beatsPerMinute);
 
-					GridRowPosition gridRowPosition = new GridRowPosition((int) (openTick /
-							minNoteLength.toTicks(beatsPerMinute)), openTick, length);
+					int columnStartIndex = (int) (openTick / minNoteLength.toTicks(beatsPerMinute));
+					int startBeatIndex = columnStartIndex / beat.getTopNumber();
+					int endBeatIndex = ((columnStartIndex + (int) ((tick - openTick) / minNoteLength.toTicks
+							(beatsPerMinute))) - 1) / beat.getTopNumber();
 
-					if(!gridRows_.containsKey(noteName)) {
-						gridRows_.put(noteName, new GridRow(noteName, new ArrayList<GridRowPosition>()));
+					GridRowPosition gridRowPosition = new GridRowPosition(columnStartIndex, openTick, length);
+
+					if (!gridRows_.containsKey(noteName)) {
+						gridRows_.put(noteName, new GridRow(noteName, new HashMap<Integer, List<GridRowPosition>>()));
 					}
 
-					gridRows_.get(noteName).getGridRowPositions().add(gridRowPosition);
+					for (int i = startBeatIndex; i <= endBeatIndex; i++) {
+						if (!gridRows_.get(noteName).getGridRowPositions().containsKey(i)) {
+							gridRows_.get(noteName).getGridRowPositions().put(i, new ArrayList<GridRowPosition>());
+						}
+
+						gridRows_.get(noteName).getGridRowPositions().get(i).add(gridRowPosition);
+					}
 				}
 			}
 		}
 
 		return new TrackGrid(track.getKey(), track.getInstrument(), beat, new ArrayList(gridRows_.values()));
 	}
-
 }
